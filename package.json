@@ -1,0 +1,22 @@
+{
+  "name": "deerberry",
+  "version": "1.0.1",
+  "description": "A library for web development.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xq-li/deerberry.git"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "github.com/xq-li",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xq-li/deerberry/issues"
+  },
+  "homepage": "https://github.com/xq-li/deerberry#readme"
+}
