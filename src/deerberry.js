@@ -1,7 +1,5 @@
 /**
- * 
- * @name pumelo
- * 
+ * @name deerberry.js
  * @author xqLi 
  */
 
