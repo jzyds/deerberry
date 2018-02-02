@@ -43,7 +43,7 @@
  	 *返回后不刷新
 	 */
 	function historyGo(num){
-		window.history.go();
+		window.history.go(num);
 	};
 
 }))
