@@ -76,4 +76,15 @@ scrolltobottom(callback)
 historyLength()
 ```
 
+### redirectHtml
+
+>重定向页面，不添加新的浏览器历史记录
+
+```js
+/**
+ * @param {String} url
+*/
+redirectHtml(url)
+```
+
 [⬆ Back to top](#Usage)

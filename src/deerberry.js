@@ -194,7 +194,7 @@
 	 *重载页面
 	 *不添加新的历史记录
 	 */
-	function locationReplace(url) {
+	function redirectHtml(url) {
 		window.location.replace(url);
 	};
 
