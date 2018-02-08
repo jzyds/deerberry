@@ -10,8 +10,7 @@
 
 	/**
 	 * 下拉刷新
-	 * @param {object} option
-	 * @function 
+	 * @param {object} option 
 	 */
 	this.pullRefresh = function(option) {
 		var defaults = {

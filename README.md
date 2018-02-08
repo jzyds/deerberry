@@ -87,4 +87,4 @@ historyLength()
 redirectHtml(url)
 ```
 
-[⬆ Back to top](#Usage)
+[⬆ Back to top](#usage)
