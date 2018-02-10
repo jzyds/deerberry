@@ -2,6 +2,61 @@
 
 ## Usage
 
+### Ajax
+
+>XMLHttpRequest
+
+<details>
+
+<summary>Examples</summary>
+
+```javascript
+db.Ajax({
+
+    //必填项
+    url: "url",
+
+    /**
+     * 可选项
+     * default value : "GET"
+     * method
+     */
+    type: 'POST',
+
+    /**
+     * 可选项
+     * default value : {}
+     * post data
+     */
+    data: {
+        key1: 'value1',
+        key2: 'value2'
+    },
+
+    /**
+     * 可选项
+     * default value : 'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+     */
+    headers:{
+        'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Accept': 'application/json'
+    }
+
+    /**
+     * 可选项
+     * default value : null
+     * jsonp回调函数，回调函数名为"jsonpCallbak"
+     * 可以设置为合法的字符串。添加此option会使用jsonp请求跨域数据
+     */
+    jsonp: 'jsonpCallbackFunctionName',
+
+    success: function (res) {},
+    error: function (error) {}
+});
+```
+
+</details>
+
 ### requireJs
 
 >动态加载JS文件

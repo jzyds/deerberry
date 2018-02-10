@@ -7,6 +7,133 @@
 	'use strict';
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = new Func() : (global.db = new Func());
 }(this, function () {
+	 
+	/**
+	 * xmlHttpRequest
+	 * @param {Object} __params
+	 */
+	this.Ajax = function (__params) {
+    	var params = __params || {};
+        
+        //默认GET
+        params.type = (params.type || 'GET').toUpperCase();
+
+        params.data = params.data || {};
+
+        params.headers = params.headers || null;
+
+        var json = params.jsonp ? jsonp(params) : json(params);
+
+        // ajax请求
+        function json(params) {
+            params.data = formatParams(params.data);
+
+            var xhr = null;
+
+            // 实例化XMLHttpRequest对象
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else {
+                // IE6及其以下版本
+                xhr = new ActiveXObjcet('Microsoft.XMLHTTP');
+            };
+
+            // 监听事件
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    var status = xhr.status;
+                    if (status >= 200 && status < 300) {
+                        var response = '';
+                        var type = xhr.getResponseHeader('Content-type');
+                        if (type.indexOf('xml') !== -1 && xhr.responseXML) {
+                            response = xhr.responseXML; //Document对象响应
+                        } else if (type.indexOf('application/json') !== -1) {
+                            response = JSON.parse(xhr.responseText); //JSON响应
+                        } else {
+                            response = xhr.responseText; //字符串响应
+                        };
+
+                        // callBack success
+                        params.success && params.success(response);
+
+                    } else {
+
+                        //callback error
+                        params.error && params.error(status);
+                    }
+                }
+            };
+
+            // 连接和传输数据
+            if (params.type == 'GET') {
+                xhr.open(params.type, params.url + '?' + params.data, true);
+                __setRequestHeader();
+                xhr.send(null);
+            } else if (params.type == 'POST') {
+                xhr.open(params.type, params.url, true);
+                __setRequestHeader();
+                xhr.send(params.data);
+            }
+
+            // set headers
+            function __setRequestHeader() {
+                if(params.headers === null || params.headers === void 0){
+                    //default
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');                    
+                }else{
+                    for (var i in params.headers) {
+                        xhr.setRequestHeader(i, params.headers[i])
+                    }
+                }
+            }
+        }
+        // JSONP请求  
+        function jsonp(params) {
+            //创建script标签并加入到页面中  
+            var callbackName = params.jsonp;
+            var head = document.getElementsByTagName('head')[0];
+            // 设置传递给后台的回调参数名  
+            params.data['callback'] = callbackName;
+            var data = formatParams(params.data);
+            var script = document.createElement('script');
+            head.appendChild(script);
+            //创建jsonp回调函数  
+            window[callbackName] = function (json) {
+                head.removeChild(script);
+                clearTimeout(script.timer);
+                window[callbackName] = null;
+                params.success && params.success(json);
+            };　　
+            //发送请求  
+            script.src = params.url + '?' + data;
+            //为了得知此次请求是否成功，设置超时处理  
+            if (params.time) {
+                script.timer = setTimeout(function () {
+                    window[callbackName] = null;
+                    head.removeChild(script);
+                    params.error && params.error({
+                        message: '超时'
+                    });
+                }, time);
+            }
+        };
+        //格式化参数  
+        function formatParams(data) {
+            var arr = [];
+            for (var name in data) {
+                arr.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
+            };
+            // 添加一个随机数，防止缓存  
+            arr.push('v=' + random());
+            return arr.join('&');
+        }
+        // 获取随机数  
+        function random() {
+            return Math.floor(Math.random() * 10000 + 500);
+        }
+    }
+
+
 	/**
 	 * 动态加载JS
 	 * @param {String} url
