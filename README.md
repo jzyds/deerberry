@@ -2,6 +2,32 @@
 
 ## Usage
 
+### requireJs
+
+>动态加载JS文件
+
+```js
+/**
+ * @param {String} url 文件路径
+ * @param {Function} callback
+ */
+db.requireJs(url, function(){})
+```
+
+### getLocalIpInfo
+
+>获取本地IP信息
+
+```js
+/**
+ * @param {String} ip
+ * @param {Function} callback
+ */
+db.getLocalIpInfo(ip, function(res){
+    console.log(res)
+})
+```
+
 ### pullRefresh
 
 >下拉刷新
@@ -40,7 +66,7 @@
 /**
  * @param {Object}
 */
-pullRefresh({
+db.pullRefresh({
     container: "#scroll_container", //外层的容器
     next: function (e) {
         var that = this;
@@ -62,7 +88,7 @@ pullRefresh({
 /**
  * @param {Function} callback
 */
-scrolltobottom(callback)
+db.scrolltobottom(callback)
 ```
 
 ### historyLength
@@ -73,7 +99,7 @@ scrolltobottom(callback)
 /**
  * @return {Int}
 */
-historyLength()
+db.historyLength()
 ```
 
 ### redirectHtml
@@ -84,7 +110,7 @@ historyLength()
 /**
  * @param {String} url
 */
-redirectHtml(url)
+db.redirectHtml(url)
 ```
 
 [⬆ Back to top](#usage)

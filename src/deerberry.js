@@ -5,8 +5,51 @@
 
 (function (global, Func) {
 	'use strict';
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = new Func() : (global.deerberry = new Func());
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = new Func() : (global.db = new Func());
 }(this, function () {
+	/**
+	 * 动态加载JS
+	 * @param {String} url
+	 * @param {Function} callback
+	 */
+	this.requireJs = function(url,callback){
+		var newScript = document.createElement("script");
+		newScript.type = "text/javascript";
+		newScript.src = url;
+		document.body.appendChild(newScript);
+		if(typeof(callback) != "undefined"){
+			if (newScript.readyState) {
+				newScript.onreadystatechange = function () {
+					if (newScript.readyState == "loaded" || newScript.readyState == "complete") {
+						newScript.onreadystatechange = null;
+						callback();
+					}
+				};
+			} else {
+				newScript.onload = function () {
+					callback();
+				};
+			}
+		}
+	}
+
+	/**
+	 * 获取本地IP地址
+	 * @param {String} ip
+	 * @param {Function} callback
+	 * @return {Object} remote_ip_info
+	 */
+	this.getLocalIpInfo = function(ip, callback){
+		if(ip === void 0){			
+			console.log('ip is null');
+			return;
+		}
+		// 调用sina api
+		this.requireJs('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=' + ip ,function(){
+			callback(remote_ip_info)
+		});
+	}
+
 
 	/**
 	 * 下拉刷新
